@@ -34,3 +34,24 @@ async fn main() {
     webhook.send(content).await;
 }
 ```
+###  Sending Embeds 
+
+
+
+```rust
+#[tokio::main]
+async fn main() {
+    let webhook = DiscordWebhook::new("YOUR_WEBHOOK_URL");
+    let embed = webhook.create_embed(
+        &[
+            ("title", "Title Goes Here"),
+            ("description", "Description Goes Here"),
+        ],
+        Some(0x00FFFF), //Set Color Code                 
+        true, // Set Timestamp
+        Some("Footer Goes Here") 
+        
+    );
+    webhook.send_embed(embed).await
+}
+```
