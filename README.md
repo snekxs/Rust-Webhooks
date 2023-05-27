@@ -7,11 +7,14 @@ The **'rust_webhook'** crate is a Rust library that provides functionality for s
 
 To use the **'rust_webhook'** crate in your Rust project, follow these steps:
 
-1. Add the crate as a dependency in your **'Cargo.toml'** file:
-`[dependencies]
-   rust_webhook = { version = "0.1" }
-   reqwest = "0.11"
-   serde_json = "1.0"`
+1. Add the crate as a dependency in your **Cargo.toml** file:
+
+```toml
+[dependencies]
+rust_webhook = { version = "0.1" }
+reqwest = "0.11"
+serde_json = "1.0"
+```
 2. Import the `send_hook` function from the `rust_webhook` crate:
 
 ```rust
