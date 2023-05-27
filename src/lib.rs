@@ -32,8 +32,8 @@ impl DiscordWebhook {
 
     pub async fn send_embed(&self, embed: Value) -> Result<(), Box<dyn StdError>> {
         let payload = json!({
-        "embeds": [embed]
-    });
+            "embeds": [embed]
+        });
 
         let response = self.post_json(&payload).await?;
 
@@ -44,7 +44,7 @@ impl DiscordWebhook {
         }
     }
 
-    pub fn create_embed(fields: &[(&str, &str)], color: Option<u32>) -> Value {
+    pub fn create_embed(&self, fields: &[(&str, &str)], color: Option<u32>) -> Value {
         let mut embed = Map::new();
 
         for (field, value) in fields {
@@ -57,8 +57,6 @@ impl DiscordWebhook {
 
         Value::Object(embed)
     }
-
-    
 
     async fn post_json(&self, payload: &serde_json::Value) -> Result<Response, Box<dyn StdError>> {
         let body = serde_json::to_string(payload)?;
