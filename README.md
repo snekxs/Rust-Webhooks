@@ -11,7 +11,7 @@ Add the crate as a dependency in your **Cargo.toml** file:
 
 ```toml
 [dependencies]
-rust_webhook = { version = "0.1.4" }
+rust_webhook = { version = "0.1.5" }
 reqwest = "0.11"
 serde_json = "1.0"
 ```
