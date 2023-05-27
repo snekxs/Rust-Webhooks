@@ -1,7 +1,8 @@
 use reqwest::{Client, Response};
-use serde::{Serialize, Serializer};
 use std::error::Error as StdError;
 use serde_json::json;
+
+
 
 pub struct DiscordWebhook {
     client: Client,
@@ -29,10 +30,11 @@ impl DiscordWebhook {
         }
     }
 
-    pub async fn send_embed(&self, embed: Embed) -> Result<(), Box<dyn StdError>> {
+    pub async fn send_embed(&self, embed: serde_json::Value) -> Result<(), Box<dyn StdError>> {
         let payload = json!({
-            "embeds": vec![embed],
-        });
+        "embed": embed
+    });
+
         let response = self.post_json(&payload).await?;
 
         if response.status().is_success() {
@@ -41,6 +43,8 @@ impl DiscordWebhook {
             Err(format!("Unexpected response: {:?}", response).into())
         }
     }
+
+    
 
     async fn post_json(&self, payload: &serde_json::Value) -> Result<Response, Box<dyn StdError>> {
         let body = serde_json::to_string(payload)?;
@@ -57,23 +61,5 @@ impl DiscordWebhook {
     }
 }
 
-#[derive(Serialize)]
-struct Embed {
-    description: String,
-    color: i32,
-    timestamp: String,
-}
 
-impl Serialize for Embed {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-        where
-            S: Serializer,
-    {
-        serializer
-            .serialize_struct("Embed", 3)?
-            .serialize_field("description", &self.description)?
-            .serialize_field("color", &self.color)?
-            .serialize_field("timestamp", &self.timestamp)?
-            .end()
-    }
-}
+
