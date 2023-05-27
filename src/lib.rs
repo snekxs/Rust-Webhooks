@@ -1,6 +1,7 @@
 use reqwest::{Client, Response};
 use std::error::Error as StdError;
 use serde_json::{json, Map, Value};
+use chrono::{Utc, DateTime};
 
 
 
@@ -48,7 +49,6 @@ impl DiscordWebhook {
         &self,
         fields: &[(&str, &str)],
         color: Option<u32>,
-        timestamp: Option<&str>,
         footer: Option<&str>,
     ) -> Value {
         let mut embed = Map::new();
@@ -61,9 +61,8 @@ impl DiscordWebhook {
             embed.insert("color".to_string(), Value::Number(color.into()));
         }
 
-        if let Some(timestamp) = timestamp {
-            embed.insert("timestamp".to_string(), Value::String(timestamp.to_string()));
-        }
+        let current_time: DateTime<Utc> = Utc::now();
+        embed.insert("timestamp".to_string(), Value::String(current_time.to_rfc3339()));
 
         if let Some(footer) = footer {
             let mut footer_map = Map::new();
