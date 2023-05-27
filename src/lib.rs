@@ -49,6 +49,7 @@ impl DiscordWebhook {
         &self,
         fields: &[(&str, &str)],
         color: Option<u32>,
+        show_timestamp: bool,
         footer: Option<&str>,
     ) -> Value {
         let mut embed = Map::new();
@@ -61,17 +62,22 @@ impl DiscordWebhook {
             embed.insert("color".to_string(), Value::Number(color.into()));
         }
 
-        let current_time: DateTime<Utc> = Utc::now();
-        embed.insert("timestamp".to_string(), Value::String(current_time.to_rfc3339()));
+        if show_timestamp {
+            let current_time: DateTime<Utc> = Utc::now();
+            embed.insert("timestamp".to_string(), Value::String(current_time.to_rfc3339()));
+        }
 
         if let Some(footer) = footer {
-            let mut footer_map = Map::new();
-            footer_map.insert("text".to_string(), Value::String(footer.to_string()));
-            embed.insert("footer".to_string(), Value::Object(footer_map));
+            if !footer.is_empty() {
+                let mut footer_map = Map::new();
+                footer_map.insert("text".to_string(), Value::String(footer.to_string()));
+                embed.insert("footer".to_string(), Value::Object(footer_map));
+            }
         }
 
         Value::Object(embed)
     }
+
 
     async fn post_json(&self, payload: &serde_json::Value) -> Result<Response, Box<dyn StdError>> {
         let body = serde_json::to_string(payload)?;
