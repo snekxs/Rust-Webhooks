@@ -25,16 +25,11 @@ use rust_webhook::send_hook;
 ```rust
 #[tokio::main]
 async fn main() {
-    let hook_url = "https://your-webhook-url";
+    let webhook = DiscordWebhook::new("YOUR_WEBHOOK_URL");
     let content = "Hello, webhook!";
-  
-    match send_hook(hook_url, content).await {
-        Ok(()) => {
-            println!("Webhook sent successfully!");
-        }
-        Err(err) => {
-            eprintln!("Failed to send webhook: {}", err);
-        }
+
+    if let Err(err) = webhook.send(content).await {
+        eprintln!("Failed to send webhook: {}", err);
     }
 }
 ```
