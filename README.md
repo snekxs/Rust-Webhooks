@@ -33,7 +33,7 @@ async fn main() {
     }
 }
 ```
-Replace "https://your-webhook-url" with the actual URL of your webhook endpoint.
+Replace **"YOUR_WEBHOOK_URL"** with the actual URL of your webhook endpoint.
 
 4. Run your Rust program. If the webhook is sent successfully, it will print a success message. If an error occurs, it will print the error message.
 
