@@ -16,13 +16,9 @@ impl DiscordWebhook {
         }
     }
 
-    pub async fn send(&self, content: &str, embed: Option<Embed>) -> Result<(), Box<dyn StdError>> {
+    pub async fn send(&self, content: &str) -> Result<(), Box<dyn StdError>> {
         let payload = json!({
             "content": content,
-            "embeds": match embed {
-                Some(e) => vec![e],
-                None => vec![],
-            }
         });
         let response = self.post_json(&payload).await?;
 
