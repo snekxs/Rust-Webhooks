@@ -2,8 +2,10 @@
 name = "rust_webhook"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 repository = "https://github.com/snekxs/Rust-Webhooks"
 homepage = "https://github.com/snekxs/Rust-Webhooks"
+description = "The program is a utility crate that provides a function to send a webhook request with JSON content using the Reqwest library in Rust. It simplifies the process of sending HTTP POST requests to webhook URLs by handling JSON serialization and request configuration."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
