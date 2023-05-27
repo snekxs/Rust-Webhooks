@@ -32,7 +32,7 @@ impl DiscordWebhook {
 
     pub async fn send_embed(&self, embed: serde_json::Value) -> Result<(), Box<dyn StdError>> {
         let payload = json!({
-        "embed": embed
+        "embeds": [embed]
     });
 
         let response = self.post_json(&payload).await?;
