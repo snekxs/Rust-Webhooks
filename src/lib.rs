@@ -44,7 +44,13 @@ impl DiscordWebhook {
         }
     }
 
-    pub fn create_embed(&self, fields: &[(&str, &str)], color: Option<u32>) -> Value {
+    pub fn create_embed(
+        &self,
+        fields: &[(&str, &str)],
+        color: Option<u32>,
+        timestamp: Option<&str>,
+        footer: Option<&str>,
+    ) -> Value {
         let mut embed = Map::new();
 
         for (field, value) in fields {
@@ -53,6 +59,16 @@ impl DiscordWebhook {
 
         if let Some(color) = color {
             embed.insert("color".to_string(), Value::Number(color.into()));
+        }
+
+        if let Some(timestamp) = timestamp {
+            embed.insert("timestamp".to_string(), Value::String(timestamp.to_string()));
+        }
+
+        if let Some(footer) = footer {
+            let mut footer_map = Map::new();
+            footer_map.insert("text".to_string(), Value::String(footer.to_string()));
+            embed.insert("footer".to_string(), Value::Object(footer_map));
         }
 
         Value::Object(embed)
