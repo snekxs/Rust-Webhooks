@@ -5,7 +5,7 @@ The **'rust_webhook'** crate is a Rust library that provides functionality for s
 
 # Installation
 
--------
+
 
 Add the crate as a dependency in your **Cargo.toml** file:
 
@@ -19,7 +19,7 @@ serde_json = "1.0"
 
 # Quick Start
 
-------
+
 
 ###  Sending Messages 
 
