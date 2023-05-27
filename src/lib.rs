@@ -1,6 +1,6 @@
 use reqwest::{Client, Response};
 use std::error::Error as StdError;
-use serde_json::json;
+use serde_json::{json, Map, Value};
 
 
 
@@ -30,7 +30,7 @@ impl DiscordWebhook {
         }
     }
 
-    pub async fn send_embed(&self, embed: serde_json::Value) -> Result<(), Box<dyn StdError>> {
+    pub async fn send_embed(&self, embed: Value) -> Result<(), Box<dyn StdError>> {
         let payload = json!({
         "embeds": [embed]
     });
@@ -42,6 +42,20 @@ impl DiscordWebhook {
         } else {
             Err(format!("Unexpected response: {:?}", response).into())
         }
+    }
+
+    pub fn create_embed(fields: &[(&str, &str)], color: Option<u32>) -> Value {
+        let mut embed = Map::new();
+
+        for (field, value) in fields {
+            embed.insert(field.to_string(), Value::String(value.to_string()));
+        }
+
+        if let Some(color) = color {
+            embed.insert("color".to_string(), Value::Number(color.into()));
+        }
+
+        Value::Object(embed)
     }
 
     
