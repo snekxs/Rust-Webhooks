@@ -1,6 +1,6 @@
 [package]
 name = "rust_webhook"
-version = "0.1.2"
+version = "0.1.4"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/snekxs/Rust-Webhooks"
