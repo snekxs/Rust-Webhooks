@@ -60,6 +60,9 @@ impl DiscordWebhook {
 
         if let Some(color) = color {
             embed.insert("color".to_string(), Value::Number(color.into()));
+        } else {
+            // Default color to grey (0x808080)
+            embed.insert("color".to_string(), Value::Number(0x808080.into()));
         }
 
         if show_timestamp {
